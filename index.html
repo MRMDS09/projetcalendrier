@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Mon calendrier</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+	<div class="app">
+		<header class="header">
+			<h1 class="title">Mon calendrier</h1>
+			<div class="controls">
+				<button id="todayBtn" class="btn">Aujourd’hui</button>
+				<div class="nav-month">
+					<button id="prevBtn" class="btn icon" aria-label="Mois précédent">&lt;</button>
+					<div id="monthYear" class="month-year" aria-live="polite"></div>
+					<button id="nextBtn" class="btn icon" aria-label="Mois suivant">&gt;</button>
+				</div>
+				<button id="clearDataBtn" class="btn danger">Vider les données</button>
+			</div>
+		</header>
+
+		<main class="main">
+			<section class="calendar-card card">
+				<div class="weekdays">
+					<div>Lundi</div>
+					<div>Mardi</div>
+					<div>Mercredi</div>
+					<div>Jeudi</div>
+					<div>Vendredi</div>
+					<div>Samedi</div>
+					<div>Dimanche</div>
+				</div>
+				<div id="calendarGrid" class="calendar-grid" role="grid" aria-label="Calendrier mensuel"></div>
+			</section>
+
+			<aside class="notes-card card">
+				<div class="notes-header">
+					<h2 id="selectedDateHeading">Sélectionnez une date</h2>
+					<div style="display:flex;align-items:center;gap:8px;">
+						<button id="addNoteBtn" class="btn primary">Ajouter une note</button>
+						<div class="note-filters">
+							<button id="filterAllBtn" class="btn small active">Tous</button>
+							<button id="filterUnvalidatedBtn" class="btn small">Non validés</button>
+						</div>
+					</div>
+				</div>
+				<div id="notesList" class="notes-list" aria-live="polite"></div>
+			</aside>
+		</main>
+	</div>
+
+	<!-- Modal -->
+	<div id="modal" class="modal" aria-hidden="true">
+		<div class="modal-backdrop" id="modalBackdrop"></div>
+		<div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+			<button id="closeModal" class="modal-close" aria-label="Fermer">&times;</button>
+			<h3 id="modalTitle">Ajouter / Modifier une note</h3>
+			<form id="noteForm" novalidate>
+				<input type="hidden" id="noteId" />
+				<div class="form-row">
+					<label>Date</label>
+					<input type="date" id="noteDate" required />
+				</div>
+				<div class="form-row">
+					<label for="noteTitle">Titre <span class="required">*</span></label>
+					<input type="text" id="noteTitle" maxlength="100" required />
+					<div class="error" id="titleError" aria-live="polite" hidden></div>
+				</div>
+				<div class="form-row">
+					<label for="noteTime">Heure</label>
+					<input type="time" id="noteTime" />
+				</div>
+				<div class="form-row">
+					<label for="noteColor">Couleur</label>
+					<input type="color" id="noteColor" value="#2b8cff" />
+				</div>
+				<div class="form-row">
+					<label for="noteDesc">Description</label>
+					<textarea id="noteDesc" rows="4"></textarea>
+				</div>
+				<div class="form-actions">
+					<button type="submit" class="btn primary" id="saveBtn">Enregistrer</button>
+					<button type="button" class="btn" id="cancelBtn">Annuler</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Toast -->
+	<div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
+
+	<script src="script.js"></script>
+</body>
+</html>
+
